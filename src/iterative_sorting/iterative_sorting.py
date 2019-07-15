@@ -40,10 +40,63 @@ def bubble_sort( arr ):
 arr2 = [1, 5, 8, 4, 2, 9, 6, 0, 3, 7]
 print("Original Array: ", arr2)
 result = bubble_sort(arr1)
-print("Selection Sort: ", result)
+print("Bubble Sort: ", result)
 
 
 # STRETCH: implement the Count Sort function below
+# Example from w3schools
+
 def count_sort( arr, maximum=-1 ):
+    m = maximum + 1
+    count = [0] * m
+
+    for i in arr:
+        # count occurences
+        count[i] += 1
+
+    val = 0
+
+    for i in range(m):
+        for j in range(count[i]):
+            arr[val] = i
+            val += 1
 
     return arr
+
+array1 = [1, 2, 7, 3, 2, 1, 4, 2, 3, 2, 1]
+print("Original Array: ", array1)
+print("Count Sort: ", count_sort(array1, 7 ))
+
+
+def count_sort2( arr, maximum=-1 ):
+    output = [0 for i in range(256)] # will have sorted arr
+    count = [0 for i in range(256)] # stores indiv counts of each charac in arr
+    ans = ["" for _ in arr] # stores resulting answer 
+
+    # store count of each character
+    for i in arr:
+        count[i] += 1
+
+    # Change count[i] so that count[i] now contains actual 
+    # position of this character in output array 
+    for i in range(256): 
+        count[i] += count[i-1]
+
+    # Build the output character array 
+    for i in range(len(arr)): 
+        output[count[arr[i]]-1] = arr[i] 
+        count[arr[i]] -= 1
+
+    # Copy the output array to arr, so that arr now 
+    # contains sorted characters 
+    for i in range(len(arr)): 
+        arr[i] = output[i]
+
+    return arr
+
+"""
+example:
+arr = "geeksforgeeks"
+result = count_sort2(arr)
+print("Count Sort: ", result) # Count Sort: eeeefggkkorss
+"""
