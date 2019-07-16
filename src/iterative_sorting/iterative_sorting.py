@@ -45,13 +45,15 @@ print("Bubble Sort: ", result)
 
 # STRETCH: implement the Count Sort function below
 # Example from w3schools
+# Check out: https://visualgo.net/en/sorting
 
-def count_sort( arr, maximum=-1 ):
+def count_sort( arr, maximum=1):
+    #maximum = max(arr)
     m = maximum + 1
-    count = [0] * m
+    count = [0] * m # creating empty array to keep count of freq
 
     for i in arr:
-        # count occurences
+        # count number of occurences of each elem in arr
         count[i] += 1
 
     val = 0
