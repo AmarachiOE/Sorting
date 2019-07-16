@@ -11,7 +11,7 @@ def merge( arrA, arrB ):
     # initialize values at index 0
     i, j , k = 0, 0, 0
     
-    # looping through the elements in array A and array B (left and right sublists of original array)
+    # looping through the elements in array A and array B (left and right sublists of original array): if ith elem is less than jth elem, add ith elem to merged_arr, else add the jth
     while i < len(arrA) and j < len(arrB):
         if arrA[i] <= arrB[j]: # if the ith elem is less than or equal to the jth elem, add i to first position in merged array merged_arr[k] = merged_arr[0]
             merged_arr[k] = arrA[i]
@@ -31,7 +31,6 @@ def merge( arrA, arrB ):
         j += 1
         k += 1
 
-
     
     return merged_arr
 
@@ -45,15 +44,8 @@ def merge_sort( arr ):
         left = arr[:mid] # set left half
         right = arr[mid:] # set right half
 
-        left_sorted = merge_sort(left) # recursion - left array is sorted now       
-        right_sorted = merge_sort(right) # recursion - right array is sorted now
-
-        # reset the passed in array as the now sorted array
-        arr = merge(left_sorted, right_sorted) 
-
-        # print("Sorted Left: ", left_sorted)
-        # print("Sorted Right: ", right_sorted)
-        # print("Final Array: ", arr)
+        # reset the passed in array as the now sorted, merged array
+        arr = merge(merge_sort(left), merge_sort(right))
 
     return arr
 
@@ -80,11 +72,31 @@ def timsort( arr ):
 
 
 """
-or combine setting left + right with recursive  steps like:
+working but with Extra Notes:
+def merge_sort( arr ):
+    # TO-DO
+    if len(arr) > 1:
+        
+        mid = len(arr) // 2 # find mid point of array, use int() if needed
+        left = arr[:mid] # set left half
+        right = arr[mid:] # set right half
+
+        left_sorted = merge_sort(left) # recursion - left array is sorted now       
+        right_sorted = merge_sort(right) # recursion - right array is sorted now
+
+        # reset the passed in array as the now sorted + merged array
+        arr = merge(left_sorted, right_sorted) 
+
+    return arr
+
+
+
+# or combine setting left + right with recursive  steps like:
 
 left = merge_sort(arr[:mid]) # Recursion: set left half and sort it
-
 right = merge_sort(arr[mid:]) # Recursion: set right half and sort it
 
-then arr = merge(left, right)
+# then 
+arr = merge(left, right)
+
 """
